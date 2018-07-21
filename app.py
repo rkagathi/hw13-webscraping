@@ -14,13 +14,16 @@ collection = db.mars_data
 
 
 
-@app.route('/scrape')
+@app.route("/scrape")
 def scrape():
+    
    # db.collection.remove()
     mars = mission_to_mars.scrape()
     print("\n\n\n")
     db.mars_data.insert_one(mars)
-    return "Completed Scraping Mars data!"
+    mars = list(db.mars_data.find())
+    return render_template("index.html", mars = mars)
+    # return "Complete Scraping Mars Data!"
 
 @app.route("/")
 def home():
